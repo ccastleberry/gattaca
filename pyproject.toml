@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "gattaca"
+version = "0.1.0"
+description = "A library for discrete optimization using genetic algorithms."
+authors = ["ccastleberry <castle.caleb@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
