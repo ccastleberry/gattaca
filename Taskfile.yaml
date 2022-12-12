@@ -1,0 +1,24 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  format:
+    desc: Format all code with black and isort
+    cmds:
+      - poetry run isort src
+      - poetry run isort test
+      - poetry run black src
+      - poetry run black test
+  lint:
+    desc: lint code with flake8 and mypy
+    cmds:
+      - poetry run flake8 src
+      - poetry run mypy src
+  test:
+    desc: Run all tests
+    cmds:
+      - poetry run pytest

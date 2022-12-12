@@ -1,0 +1,17 @@
+site_name: My Docs
+
+
+nav:
+  - Home: index.md
+  - Problem Examples: problem_types.md
+
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+  palette:
+    scheme: slate
+    primary: deep orange
+    accent: teal
