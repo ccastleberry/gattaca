@@ -8,6 +8,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
+rich = "^12.6.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -19,6 +20,7 @@ flake8 = "^6.0.0"
 mypy = "^0.991"
 isort = "^5.10.1"
 bumpver = "^2022.1120"
+jupyterlab = "^3.5.2"
 
 [build-system]
 requires = ["poetry-core"]

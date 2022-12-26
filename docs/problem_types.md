@@ -1,6 +1,12 @@
 # Example Optimization Problems
 Here are some examples of common discrete optimization problems broken down by type.
 
+## Function Optimization
+
+### Single Function Optimization
+### Integer Function Optimization
+### Multi-Function Optimization
+
 ## Assignment Problems
 
 ### Basic Worker-Task Problem

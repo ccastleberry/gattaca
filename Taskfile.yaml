@@ -1,11 +1,14 @@
-# https://taskfile.dev
-
 version: '3'
 
-vars:
-  GREETING: Hello, World!
-
 tasks:
+  docs:serve:
+    desc: Serve live updated docs
+    cmds:
+      - poetry run mkdocs serve
+  jupyter:
+    desc: run jupyterlab notebooks from poetry env
+    cmds:
+      - poetry run jupyter lab
   format:
     desc: Format all code with black and isort
     cmds:

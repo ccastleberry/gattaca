@@ -3,7 +3,11 @@ site_name: My Docs
 
 nav:
   - Home: index.md
-  - Problem Examples: problem_types.md
+  - Problem Types: problem_types.md
+  - Examples:
+      - Function Optimization:
+          - Single Function Optimization: examples/function_optimization/single_function_optimization.md
+  - Planned Feature List: feature_list.md
 
 
 theme:
@@ -11,7 +15,23 @@ theme:
   features:
     - navigation.tabs
     - navigation.tabs.sticky
+    - content.code.annotate
   palette:
     scheme: slate
     primary: deep orange
     accent: teal
+
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
