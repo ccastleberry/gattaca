@@ -1,18 +1,16 @@
 from abc import ABC, abstractmethod
-from typing import Self
 
 
 class Candidate(ABC):
     @classmethod
     @abstractmethod
-    def generate_random(cls) -> Self:
+    def generate_random(cls):
         raise NotImplementedError
 
     @abstractmethod
-    def mutate(self) -> None:
+    def mutate(self):
         raise NotImplementedError
 
     @abstractmethod
-    def crossover(self, other: Self) -> Self:
+    def crossover(self, other):
         raise NotImplementedError
-

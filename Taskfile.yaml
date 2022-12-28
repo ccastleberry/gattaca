@@ -6,9 +6,13 @@ tasks:
     cmds:
       - poetry run mkdocs serve
   jupyter:
-    desc: run jupyterlab notebooks from poetry env
+    desc: Run jupyterlab notebooks from poetry env
     cmds:
       - poetry run jupyter lab
+  benchmark:
+    desc: Run benchmarks
+    cmds:
+      - poetry run richbench benchmarks/
   format:
     desc: Format all code with black and isort
     cmds:
@@ -17,7 +21,7 @@ tasks:
       - poetry run black src
       - poetry run black test
   lint:
-    desc: lint code with flake8 and mypy
+    desc: Lint code with flake8 and mypy
     cmds:
       - poetry run flake8 src
       - poetry run mypy src
