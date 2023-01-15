@@ -1,6 +1,6 @@
-import pytest
 import random
 
+import pytest
 
 from gattaca.candidate_abc import Candidate
 from gattaca.genetic_solver import GeneticSolver
@@ -30,35 +30,45 @@ def single_value_scorer_min():
         x = candidate.value
         return (3 - x) ** 2
 
-    scorer = Scorer(SingleValueCandidate, scoring_function=scoring_function, scoring_direction=ScoringDirection.MIN)
+    scorer = Scorer(
+        SingleValueCandidate,
+        scoring_function=scoring_function,
+        scoring_direction=ScoringDirection.MIN,
+    )
     return scorer
+
 
 @pytest.fixture(scope="session")
 def single_value_scorer_max():
     def scoring_function(candidate: SingleValueCandidate) -> float:
         x = candidate.value
-        return - ((3 - x) ** 2)
+        return -((3 - x) ** 2)
 
-    scorer = Scorer(SingleValueCandidate, scoring_function=scoring_function, scoring_direction=ScoringDirection.MAX)
+    scorer = Scorer(
+        SingleValueCandidate,
+        scoring_function=scoring_function,
+        scoring_direction=ScoringDirection.MAX,
+    )
     return scorer
 
 
-def test_single_value_example_runs(single_value_scorer_min):
+def test_single_value_example_runs_min(single_value_scorer_min):
     solver = GeneticSolver(
         population_size=20,
-        generation_count=10,
+        generation_count=20,
         candidate_class=SingleValueCandidate,
-        scorer=single_value_scorer_min
+        scorer=single_value_scorer_min,
     )
     solution = solver.solve()
-    assert abs(solution.value - 3) < .1
+    assert abs(solution.value - 3) < 0.1
 
-def test_single_value_example_runs(single_value_scorer_max):
+
+def test_single_value_example_runs_max(single_value_scorer_max):
     solver = GeneticSolver(
         population_size=20,
-        generation_count=10,
+        generation_count=20,
         candidate_class=SingleValueCandidate,
-        scorer=single_value_scorer_max
+        scorer=single_value_scorer_max,
     )
     solution = solver.solve()
-    assert abs(solution.value - 3) < .1
+    assert abs(solution.value - 3) < 0.1

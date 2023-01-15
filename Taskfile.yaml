@@ -16,16 +16,27 @@ tasks:
   format:
     desc: Format all code with black and isort
     cmds:
-      - poetry run isort src
-      - poetry run isort test
-      - poetry run black src
-      - poetry run black test
+      - poetry run isort src tests examples
+      - poetry run black src tests examples
   lint:
-    desc: Lint code with flake8 and mypy
+    desc: Lint code with flake8, isort and black
     cmds:
-      - poetry run flake8 src
-      - poetry run mypy src
+      - poetry run isort -c src tests examples
+      - poetry run black --check src tests examples
+      - poetry run flake8 src tests examples
+  analyze:
+    desc: Analyze code with mypy, xenon and bandit
+    cmds:
+      - poetry run mypy src tests examples
+      - poetry run xenon -b B -m A -a A src
+      - poetry run bandit -c pyproject.toml -r .
   test:
     desc: Run all tests
     cmds:
       - poetry run pytest
+  full-check:
+    desc: run linting and testing
+    cmds:
+      - task: lint
+      - task: analyze
+      - task: test

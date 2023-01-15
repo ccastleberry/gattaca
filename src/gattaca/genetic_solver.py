@@ -1,16 +1,16 @@
 import random
-from typing import Callable, Type, TypeVar
+from typing import Type, TypeVar
 
 from gattaca.candidate_abc import Candidate
-from gattaca.scorer import Scorer, ScoringDirection
+from gattaca.scorer import Scorer
 
-T = TypeVar("T", bound=Type[Candidate])
+T = TypeVar("T", bound=Candidate)
 
 
 class GeneticSolver:
     def __init__(
         self,
-        candidate_class: T,
+        candidate_class: Type[T],
         scorer: Scorer[T],
         population_size: int = 100,
         generation_count: int = 100,

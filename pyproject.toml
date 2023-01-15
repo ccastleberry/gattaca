@@ -15,13 +15,15 @@ rich = "^12.6.0"
 mkdocs = "^1.4.2"
 mkdocs-material = "^8.5.11"
 pytest = "^7.2.0"
-black = "^22.12.0"
+black = {extras = ["jupyter"], version = "^22.12.0"}
 flake8 = "^6.0.0"
 mypy = "^0.991"
 isort = "^5.10.1"
 bumpver = "^2022.1120"
 jupyterlab = "^3.5.2"
 richbench = "^1.0.3"
+xenon = "^0.9.0"
+bandit = "^1.7.4"
 
 [build-system]
 requires = ["poetry-core"]
@@ -29,3 +31,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.isort]
 profile = "black"
+
+[tool.bandit]
+exclude_dirs = ["tests", "benchmarks"]
+skips = ["B311"]

@@ -171,6 +171,29 @@ files = [
 ]
 
 [[package]]
+name = "bandit"
+version = "1.7.4"
+description = "Security oriented static analyser for python code."
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "bandit-1.7.4-py3-none-any.whl", hash = "sha256:412d3f259dab4077d0e7f0c11f50f650cc7d10db905d98f6520a95a18049658a"},
+    {file = "bandit-1.7.4.tar.gz", hash = "sha256:2d63a8c573417bae338962d4b9b06fbc6080f74ecd955a092849e1e65c717bd2"},
+]
+
+[package.dependencies]
+colorama = {version = ">=0.3.9", markers = "platform_system == \"Windows\""}
+GitPython = ">=1.0.1"
+PyYAML = ">=5.3.1"
+stevedore = ">=1.20.0"
+
+[package.extras]
+test = ["beautifulsoup4 (>=4.8.0)", "coverage (>=4.5.4)", "fixtures (>=3.0.0)", "flake8 (>=4.0.0)", "pylint (==1.9.4)", "stestr (>=2.5.0)", "testscenarios (>=0.5.0)", "testtools (>=2.3.0)", "toml"]
+toml = ["toml"]
+yaml = ["PyYAML"]
+
+[[package]]
 name = "beautifulsoup4"
 version = "4.11.1"
 description = "Screen-scraping library"
@@ -213,9 +236,11 @@ files = [
 
 [package.dependencies]
 click = ">=8.0.0"
+ipython = {version = ">=7.8.0", optional = true, markers = "extra == \"jupyter\""}
 mypy-extensions = ">=0.4.3"
 pathspec = ">=0.9.0"
 platformdirs = ">=2"
+tokenize-rt = {version = ">=3.2.0", optional = true, markers = "extra == \"jupyter\""}
 
 [package.extras]
 colorama = ["colorama (>=0.4.3)"]
@@ -551,6 +576,17 @@ files = [
 ]
 
 [[package]]
+name = "future"
+version = "0.18.3"
+description = "Clean single-source support for Python 3 and 2"
+category = "dev"
+optional = false
+python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
+files = [
+    {file = "future-0.18.3.tar.gz", hash = "sha256:34a17436ed1e96697a86f9de3d15a3b0be01d8bc8de9c1dffd59fb8234ed5307"},
+]
+
+[[package]]
 name = "ghp-import"
 version = "2.1.0"
 description = "Copy your docs directly to the gh-pages branch."
@@ -567,6 +603,36 @@ python-dateutil = ">=2.8.1"
 
 [package.extras]
 dev = ["flake8", "markdown", "twine", "wheel"]
+
+[[package]]
+name = "gitdb"
+version = "4.0.10"
+description = "Git Object Database"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "gitdb-4.0.10-py3-none-any.whl", hash = "sha256:c286cf298426064079ed96a9e4a9d39e7f3e9bf15ba60701e95f5492f28415c7"},
+    {file = "gitdb-4.0.10.tar.gz", hash = "sha256:6eb990b69df4e15bad899ea868dc46572c3f75339735663b81de79b06f17eb9a"},
+]
+
+[package.dependencies]
+smmap = ">=3.0.1,<6"
+
+[[package]]
+name = "gitpython"
+version = "3.1.30"
+description = "GitPython is a python library used to interact with Git repositories"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "GitPython-3.1.30-py3-none-any.whl", hash = "sha256:cd455b0000615c60e286208ba540271af9fe531fa6a87cc590a7298785ab2882"},
+    {file = "GitPython-3.1.30.tar.gz", hash = "sha256:769c2d83e13f5d938b7688479da374c4e3d49f71549aaf462b646db9602ea6f8"},
+]
+
+[package.dependencies]
+gitdb = ">=4.0.1,<5"
 
 [[package]]
 name = "idna"
@@ -1002,6 +1068,24 @@ files = [
     {file = "lexid-2021.1006-py2.py3-none-any.whl", hash = "sha256:5526bb5606fd74c7add23320da5f02805bddd7c77916f2dc1943e6bada8605ed"},
     {file = "lexid-2021.1006.tar.gz", hash = "sha256:509a3a4cc926d3dbf22b203b18a4c66c25e6473fb7c0e0d30374533ac28bafe5"},
 ]
+
+[[package]]
+name = "mando"
+version = "0.6.4"
+description = "Create Python CLI apps with little to no effort at all!"
+category = "dev"
+optional = false
+python-versions = "*"
+files = [
+    {file = "mando-0.6.4-py2.py3-none-any.whl", hash = "sha256:4ce09faec7e5192ffc3c57830e26acba0fd6cd11e1ee81af0d4df0657463bd1c"},
+    {file = "mando-0.6.4.tar.gz", hash = "sha256:79feb19dc0f097daa64a1243db578e7674909b75f88ac2220f1c065c10a0d960"},
+]
+
+[package.dependencies]
+six = "*"
+
+[package.extras]
+restructuredtext = ["rst2ansi"]
 
 [[package]]
 name = "markdown"
@@ -1491,6 +1575,18 @@ python-versions = ">=3.7"
 files = [
     {file = "pathspec-0.10.3-py3-none-any.whl", hash = "sha256:3c95343af8b756205e2aba76e843ba9520a24dd84f68c22b9f93251507509dd6"},
     {file = "pathspec-0.10.3.tar.gz", hash = "sha256:56200de4077d9d0791465aa9095a01d421861e405b5096955051deefd697d6f6"},
+]
+
+[[package]]
+name = "pbr"
+version = "5.11.1"
+description = "Python Build Reasonableness"
+category = "dev"
+optional = false
+python-versions = ">=2.6"
+files = [
+    {file = "pbr-5.11.1-py2.py3-none-any.whl", hash = "sha256:567f09558bae2b3ab53cb3c1e2e33e726ff3338e7bae3db5dc954b3a44eef12b"},
+    {file = "pbr-5.11.1.tar.gz", hash = "sha256:aefc51675b0b533d56bb5fd1c8c6c0522fe31896679882e1c4c63d5e4a0fccb3"},
 ]
 
 [[package]]
@@ -2064,6 +2160,23 @@ cffi = {version = "*", markers = "implementation_name == \"pypy\""}
 py = {version = "*", markers = "implementation_name == \"pypy\""}
 
 [[package]]
+name = "radon"
+version = "5.1.0"
+description = "Code Metrics in Python"
+category = "dev"
+optional = false
+python-versions = "*"
+files = [
+    {file = "radon-5.1.0-py2.py3-none-any.whl", hash = "sha256:fa74e018197f1fcb54578af0f675d8b8e2342bd8e0b72bef8197bc4c9e645f36"},
+    {file = "radon-5.1.0.tar.gz", hash = "sha256:cb1d8752e5f862fb9e20d82b5f758cbc4fb1237c92c9a66450ea0ea7bf29aeee"},
+]
+
+[package.dependencies]
+colorama = {version = ">=0.4.1", markers = "python_version > \"3.4\""}
+future = "*"
+mando = ">=0.6,<0.7"
+
+[[package]]
 name = "requests"
 version = "2.28.1"
 description = "Python HTTP for Humans."
@@ -2194,6 +2307,18 @@ files = [
 ]
 
 [[package]]
+name = "smmap"
+version = "5.0.0"
+description = "A pure Python implementation of a sliding window memory map manager"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "smmap-5.0.0-py3-none-any.whl", hash = "sha256:2aba19d6a040e78d8b09de5c57e96207b09ed71d8e55ce0959eeee6c8e190d94"},
+    {file = "smmap-5.0.0.tar.gz", hash = "sha256:c840e62059cd3be204b0c9c9f74be2c09d5648eddd4580d9314c3ecde0b30936"},
+]
+
+[[package]]
 name = "sniffio"
 version = "1.3.0"
 description = "Sniff out which async library your code is running under"
@@ -2238,6 +2363,21 @@ pure-eval = "*"
 tests = ["cython", "littleutils", "pygments", "pytest", "typeguard"]
 
 [[package]]
+name = "stevedore"
+version = "4.1.1"
+description = "Manage dynamic plugins for Python applications"
+category = "dev"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "stevedore-4.1.1-py3-none-any.whl", hash = "sha256:aa6436565c069b2946fe4ebff07f5041e0c8bf18c7376dd29edf80cf7d524e4e"},
+    {file = "stevedore-4.1.1.tar.gz", hash = "sha256:7f8aeb6e3f90f96832c301bff21a7eb5eefbe894c88c506483d355565d88cc1a"},
+]
+
+[package.dependencies]
+pbr = ">=2.0.0,<2.1.0 || >2.1.0"
+
+[[package]]
 name = "terminado"
 version = "0.17.1"
 description = "Tornado websocket backend for the Xterm.js Javascript terminal emulator library."
@@ -2276,6 +2416,18 @@ webencodings = ">=0.4"
 [package.extras]
 doc = ["sphinx", "sphinx_rtd_theme"]
 test = ["flake8", "isort", "pytest"]
+
+[[package]]
+name = "tokenize-rt"
+version = "5.0.0"
+description = "A wrapper around the stdlib `tokenize` which roundtrips."
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "tokenize_rt-5.0.0-py2.py3-none-any.whl", hash = "sha256:c67772c662c6b3dc65edf66808577968fb10badfc2042e3027196bed4daf9e5a"},
+    {file = "tokenize_rt-5.0.0.tar.gz", hash = "sha256:3160bc0c3e8491312d0485171dea861fc160a240f5f5766b72a1165408d10740"},
+]
 
 [[package]]
 name = "toml"
@@ -2476,7 +2628,24 @@ docs = ["Sphinx (>=3.4)", "sphinx-rtd-theme (>=0.5)"]
 optional = ["python-socks", "wsaccel"]
 test = ["websockets"]
 
+[[package]]
+name = "xenon"
+version = "0.9.0"
+description = "Monitor code metrics for Python on your CI server"
+category = "dev"
+optional = false
+python-versions = "*"
+files = [
+    {file = "xenon-0.9.0-py2.py3-none-any.whl", hash = "sha256:994c80c7f1c6d40596b600b93734d85a5739208f31895ef99f1e4d362caf9e35"},
+    {file = "xenon-0.9.0.tar.gz", hash = "sha256:d2b9cb6c6260f771a432c1e588e51fddb17858f88f73ef641e7532f7a5f58fb8"},
+]
+
+[package.dependencies]
+PyYAML = ">=4.2b1,<7.0"
+radon = ">=4,<6"
+requests = ">=2.0,<3.0"
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "427fcffa105849500266b2434b578d807e6a13b17078f5951263f782e01da26a"
+content-hash = "e2645cfeb0ab2a4728ca01f8b99ff5c9595d429fce54bd2e6f9262696c174c40"
