@@ -1,7 +1,7 @@
 # Intended Feature List
 A list of features which we would like to implement.
 
-1. Allow for both minimizing and maximizing functions.
+1. ~~Allow for both minimizing and maximizing functions.~~
 2. Scaling Mutation Levels.
 2. Progress Bar and/or logging.
 3. multi-processing.
