@@ -14,7 +14,7 @@ class SingleValueCandidate(Candidate):
     def generate_random(cls):
         return SingleValueCandidate(value=random.uniform(-100, 101))
 
-    def mutate(self):
+    def mutate(self, scale: int = 1):
         new_value = self.value + random.normalvariate(0, 5)
         return SingleValueCandidate(value=new_value)
 

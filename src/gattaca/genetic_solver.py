@@ -1,10 +1,20 @@
+import logging
 import random
+from enum import Enum
 from typing import Type, TypeVar
 
 from gattaca.candidate_abc import Candidate
 from gattaca.scorer import Scorer
 
+logger = logging.getLogger(__name__)
+
 T = TypeVar("T", bound=Candidate)
+
+
+class MutationScalingPattern(Enum):
+    LINEAR = "linear"
+    QUADRATIC = "quadratic"
+    NONE = "none"
 
 
 class GeneticSolver:
@@ -16,6 +26,10 @@ class GeneticSolver:
         generation_count: int = 100,
         keep_top_parents: bool = True,
         selection_percentage: float = 0.2,
+        starting_mutation_count: int = 10,
+        mutation_count_scaling: MutationScalingPattern = MutationScalingPattern.LINEAR,
+        starting_mutation_scale: float = 1,
+        mutation_scaling: MutationScalingPattern = MutationScalingPattern.LINEAR,
     ):
         # TODO: Write validation function and tests
         if population_size < 0:
@@ -31,22 +45,67 @@ class GeneticSolver:
         self.keep_top_parents = keep_top_parents
         self.selection_percentage = selection_percentage
         self.selection_count = round(population_size * selection_percentage)
+        self.starting_mutation_count = starting_mutation_count
+        self.mutation_count_scaling = mutation_count_scaling
+        self.starting_mutation_scale = starting_mutation_scale
+        self.mutation_scaling = mutation_scaling
 
     def solve(self) -> Type[Candidate]:
         population = [
             self.candidate_class.generate_random() for _ in range(self.population_size)
         ]
-        for _ in range(self.generation_count):
+        percent_step_per_loop = 1 / self.generation_count
+        percent_remaining = 1.0
+        for i in range(self.generation_count):
+            logger.debug(f"Running generation {i} of {self.generation_count}")
+            # Get mutation count and scale
+            mutation_count = self.get_mutation_count(percent_remaining)
+            mutation_scale = self.get_mutation_scale(percent_remaining)
+
             # TODO: add optimization so we don't re-score candidates
             population.sort(key=self.scorer.score)
-            top_population = population[: self.selection_count]
-            for _ in range(self.population_size - self.selection_count):
-                parent_1 = random.choice(top_population)
-                parent_2 = random.choice(top_population)
+            # select only top of population
+            selection_population = population[: self.selection_count]
+
+            # initialize new population
+            if self.keep_top_parents:
+                new_population = selection_population
+                refill_count = self.population_size - self.selection_count
+            else:
+                new_population = []
+                refill_count = self.population_size
+
+            # populate the new population
+            for _ in range(refill_count):
+                parent_1 = random.choice(selection_population)
+                parent_2 = random.choice(selection_population)
                 new_candidate = parent_1.crossover(other=parent_2)
-                mutated_candidate = new_candidate.mutate()
-                top_population.append(mutated_candidate)
-            population = top_population
+                new_candidate.multi_mutate(scale=mutation_scale, count=mutation_count)
+                new_population.append(new_candidate)
+
+            # Update for next loop
+            population = new_population
+            percent_remaining -= percent_step_per_loop
 
         population.sort(key=self.scorer.score)
         return population[0]
+
+    def get_mutation_count(self, gen_percent_remaining: float) -> int:
+        if self.mutation_count_scaling == MutationScalingPattern.LINEAR:
+            return round(self.starting_mutation_count * gen_percent_remaining)
+        elif self.mutation_count_scaling == MutationScalingPattern.QUADRATIC:
+            return round(self.starting_mutation_count * (gen_percent_remaining**2))
+        elif self.mutation_count_scaling == MutationScalingPattern.NONE:
+            return self.starting_mutation_count
+        else:
+            raise ValueError("No match for mutation_count_scaling found")
+
+    def get_mutation_scale(self, gen_percent_remaining: float) -> float:
+        if self.mutation_scaling == MutationScalingPattern.LINEAR:
+            return self.starting_mutation_scale * gen_percent_remaining
+        elif self.mutation_scaling == MutationScalingPattern.QUADRATIC:
+            return self.starting_mutation_scale * (gen_percent_remaining**2)
+        elif self.mutation_scaling == MutationScalingPattern.NONE:
+            return self.starting_mutation_scale
+        else:
+            raise ValueError("No match for mutation_scaling found")

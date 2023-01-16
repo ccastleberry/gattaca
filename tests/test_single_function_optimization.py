@@ -15,13 +15,16 @@ class SingleValueCandidate(Candidate):
     def generate_random(cls):
         return SingleValueCandidate(value=random.uniform(-100, 101))
 
-    def mutate(self):
-        new_value = self.value + random.normalvariate(0, 5)
+    def mutate(self, scale: float = 1):
+        new_value = self.value + random.normalvariate(0, 5) * scale
         return SingleValueCandidate(value=new_value)
 
     def crossover(self, other):
         new_value = (self.value + other.value) / 2
         return SingleValueCandidate(value=new_value)
+
+    def solution(self) -> float:
+        return self.value
 
 
 @pytest.fixture(scope="session")
@@ -54,21 +57,21 @@ def single_value_scorer_max():
 
 def test_single_value_example_runs_min(single_value_scorer_min):
     solver = GeneticSolver(
-        population_size=20,
-        generation_count=20,
+        population_size=100,
+        generation_count=100,
         candidate_class=SingleValueCandidate,
         scorer=single_value_scorer_min,
     )
-    solution = solver.solve()
-    assert abs(solution.value - 3) < 0.1
+    best_candidate = solver.solve()
+    assert abs(best_candidate.solution() - 3) < 0.1
 
 
 def test_single_value_example_runs_max(single_value_scorer_max):
     solver = GeneticSolver(
-        population_size=20,
-        generation_count=20,
+        population_size=100,
+        generation_count=100,
         candidate_class=SingleValueCandidate,
         scorer=single_value_scorer_max,
     )
-    solution = solver.solve()
-    assert abs(solution.value - 3) < 0.1
+    best_candidate = solver.solve()
+    assert abs(best_candidate.solution() - 3) < 0.1
