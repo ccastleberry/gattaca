@@ -1,12 +1,15 @@
-import logging
 import random
 from enum import Enum
 from typing import Type, TypeVar
 
+import structlog
+
 from gattaca.candidate_abc import Candidate
 from gattaca.scorer import Scorer
 
-logger = logging.getLogger(__name__)
+logger = structlog.get_logger(__name__)
+structlog.stdlib.recreate_defaults(log_level=None)
+
 
 T = TypeVar("T", bound=Candidate)
 
@@ -57,13 +60,17 @@ class GeneticSolver:
         percent_step_per_loop = 1 / self.generation_count
         percent_remaining = 1.0
         for i in range(self.generation_count):
-            logger.debug(f"Running generation {i} of {self.generation_count}")
+            log = logger.bind(generation=i + 1)
+
             # Get mutation count and scale
             mutation_count = self.get_mutation_count(percent_remaining)
             mutation_scale = self.get_mutation_scale(percent_remaining)
+            log = log.bind(mutation_count=mutation_count, mutation_scale=mutation_scale)
 
             # TODO: add optimization so we don't re-score candidates
             population.sort(key=self.scorer.score)
+            best_score = self.scorer.score(population[0])
+            log = log.bind(best_score=best_score)
             # select only top of population
             selection_population = population[: self.selection_count]
 
@@ -85,7 +92,8 @@ class GeneticSolver:
 
             # Update for next loop
             population = new_population
-            percent_remaining -= percent_step_per_loop
+            percent_remaining = max(percent_remaining - percent_step_per_loop, 0)
+            log.debug("Generation Complete", percent_remaining=percent_remaining)
 
         population.sort(key=self.scorer.score)
         return population[0]

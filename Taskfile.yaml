@@ -28,7 +28,7 @@ tasks:
     desc: Analyze code with mypy, xenon and bandit
     cmds:
       - poetry run mypy src tests examples
-      - poetry run xenon -b B -m A -a A src
+      - poetry run xenon -b B -m B -a A src
       - poetry run bandit -c pyproject.toml -r .
   test:
     desc: Run all tests

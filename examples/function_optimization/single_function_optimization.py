@@ -1,3 +1,4 @@
+import logging
 import random
 
 from gattaca.candidate_abc import Candidate
@@ -44,12 +45,13 @@ def main():
         candidate_class=SingleValueCandidate,
         scorer=scorer,
         selection_percentage=0.2,
-        keep_top_parents=False,
+        keep_top_parents=True,
     )
     return solver.solve()
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG)
     best_candidate = main()
     solution = best_candidate.solution()
     print(f"{solution=}")
