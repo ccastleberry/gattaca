@@ -1,0 +1,29 @@
+name: Lint
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install go-task
+        run: |
+          curl -sL https://taskfile.dev/install.sh | sh
+          sudo mv task /usr/local/bin/
+
+      - name: Install poetry
+        run: |
+          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+          source $HOME/.poetry/env
+
+      - name: Install Dependencies using Poetry
+        run: poetry install --dev
+
+      - name: Run task lint
+        run: task lint

@@ -1,23 +1,21 @@
-exclude: ^(benchmarks|examples|tests)/.*\.py$
-
 repos:
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    # Ruff version.
-    rev: 'v0.0.265'
+  - repo: local
     hooks:
-      - id: ruff
-  - repo: https://github.com/psf/black
-    rev: 23.3.0
-    hooks:
-      - id: black
-
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.2.0
-    hooks:
-      - id: mypy
-
-  - repo: https://github.com/yunojuno/pre-commit-xenon
-    rev: v0.1
-    hooks:
-      - id: xenon
-        args: [ "--max-average=B", "--max-modules=B", "--max-absolute=B" ]
+      - id: lint
+        name: task lint
+        entry: task lint
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: analyze
+        name: task analyze
+        entry: task analyze
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: test
+        name: task test
+        entry: task test
+        language: system
+        pass_filenames: false
+        always_run: true
