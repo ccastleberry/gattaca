@@ -1,5 +1,6 @@
 import random
 
+
 from gattaca.candidate_abc import Candidate
 from gattaca.genetic_solver import GeneticSolver
 from gattaca.scorer import Scorer, ScoringDirection
@@ -28,11 +29,14 @@ def scoring_function(candidate: SingleValueCandidate) -> float:
     x = candidate.value
     return (3 - x) ** 2
 
+
 scorer = Scorer(
-        SingleValueCandidate,
-        scoring_function=scoring_function,
-        scoring_direction=ScoringDirection.MIN,
-    )
+    SingleValueCandidate,
+    scoring_function=scoring_function,
+    scoring_direction=ScoringDirection.MIN,
+)
+
+
 def solve(pop: int, gen: int):
     solver = GeneticSolver(
         population_size=pop,
@@ -42,17 +46,28 @@ def solve(pop: int, gen: int):
     )
     solver.solve()
 
+
 def solve_with_pop_10_gen_10():
     solve(10, 10)
 
+
 def solve_with_pop_100_gen_10():
     solve(100, 10)
+
 
 def solve_with_pop_10_gen_100():
     solve(10, 100)
 
 
 __benchmarks__ = [
-    (solve_with_pop_100_gen_10, solve_with_pop_10_gen_10, "pop:100/gen:10 vs pop:10/gen:10"),
-    (solve_with_pop_10_gen_100, solve_with_pop_10_gen_10, "pop:10/gen:100 vs pop:10/gen:10"),
+    (
+        solve_with_pop_100_gen_10,
+        solve_with_pop_10_gen_10,
+        "pop:100/gen:10 vs pop:10/gen:10",
+    ),
+    (
+        solve_with_pop_10_gen_100,
+        solve_with_pop_10_gen_10,
+        "pop:10/gen:100 vs pop:10/gen:10",
+    ),
 ]

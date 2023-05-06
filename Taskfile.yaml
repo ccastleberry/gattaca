@@ -16,14 +16,13 @@ tasks:
   format:
     desc: Format all code with black and isort
     cmds:
-      - poetry run isort src tests examples
-      - poetry run black src tests examples
+      - poetry run black .
+      - poetry run ruff --fix .
   lint:
     desc: Lint code with flake8, isort and black
     cmds:
-      - poetry run isort -c src tests examples
-      - poetry run black --check src tests examples
-      - poetry run flake8 src tests examples
+      - poetry run black --check .
+      - poetry run ruff .
   analyze:
     desc: Analyze code with mypy, xenon and bandit
     cmds:

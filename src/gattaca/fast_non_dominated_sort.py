@@ -42,4 +42,3 @@ def fast_non_dominated_sort(points: List[Tuple[float, ...]]) -> List[List[int]]:
         fronts.append(new_front)
     fronts.pop(-1)
     return fronts
-
