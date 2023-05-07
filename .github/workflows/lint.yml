@@ -37,7 +37,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m poetry install --dev
+          python -m poetry install
 
       - name: Run task lint
         run: task lint
