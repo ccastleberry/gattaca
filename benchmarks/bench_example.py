@@ -30,6 +30,7 @@ def scoring_function(candidate: SingleValueCandidate) -> float:
     return (3 - x) ** 2
 
 
+# Define Scorer
 scorer = Scorer(
     SingleValueCandidate,
     scoring_function=scoring_function,

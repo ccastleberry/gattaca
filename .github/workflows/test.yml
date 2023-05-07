@@ -12,18 +12,35 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install go-task
-        run: |
-          curl -sL https://taskfile.dev/install.sh | sh
-          sudo mv task /usr/local/bin/
+      - name: Install Task
+        uses: arduino/setup-task@v1
+        with:
+          version: 3.x
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
 
       - name: Install poetry
         run: |
-          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
-          source $HOME/.poetry/env
+          python -m pip install poetry==1.4.2
 
-      - name: Install Dependencies using Poetry
-        run: poetry install --dev
+      - name: Configure poetry
+        run: |
+          python -m poetry config virtualenvs.in-project true
+
+      - name: Cache the virtualenv
+        uses: actions/cache@v2
+        with:
+          path: ./.venv
+          key: ${{ runner.os }}-venv-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install dependencies
+        run: |
+          python -m poetry install
+
 
       - name: Run task test
         run: task test
