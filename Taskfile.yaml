@@ -28,7 +28,7 @@ tasks:
     cmds:
       - poetry run mypy src tests examples
       - poetry run xenon -b B -m B -a A src
-      - poetry run bandit -c pyproject.toml -r .
+      - poetry run bandit -c pyproject.toml -r src/
   test:
     desc: Run all tests
     cmds:
